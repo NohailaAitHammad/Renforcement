@@ -46,3 +46,6 @@ for(let course of  cources){
 }
 console.log(prixTotal)
 
+
+
+
