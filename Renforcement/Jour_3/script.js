@@ -1,90 +1,161 @@
-//R-Challenge 2 — L'analyse des ventes
+//R-Challenge 4 — Le carnet d'adresses professionnel
 
-let ventes = [
+const contacts = [
     {
-        mois : "1",
-        chiffre_affaire : 120,
-        nb_clients : 10,
-        ville : "casablanca"
+        "nom": "Nohaila",
+        "entreprise": "TechCo",
+        "email": "nohaila@example.com",
+        "telephone": "0600111222",
+        "ville": "Casablanca",
+        "adresse": {
+            "rue": "Rue A",
+            "code_postal": "20000",
+            "ville": "Casablanca",
+            "pays": "Maroc"
+        }
     },
     {
-        mois : "2",
-        chiffre_affaire : 120,
-        nb_clients : 100000,
-        ville : "EL JADIDA"
+        "nom": "Youssef",
+        "entreprise": "GreenCo",
+        "email": "youssef@example.com",
+        "telephone": "0600333444",
+        "ville": "Rabat",
+        "adresse": {
+            "rue": "Rue B",
+            "code_postal": "10000",
+            "ville": "Rabat",
+            "pays": "Maroc"
+        }
     },
     {
-        mois : "3",
-        chiffre_affaire : 12011,
-        nb_clients : 10500,
-        ville : "AGADIR"
+        "nom": "Sara",
+        "entreprise": "InnoTech",
+        "email": "sara@example.com",
+        "telephone": "0600555666",
+        "ville": "Marrakech",
+        "adresse": {
+            "rue": "Rue C",
+            "code_postal": "40000",
+            "ville": "Marrakech",
+            "pays": "Maroc"
+        }
     },
     {
-        mois : "4",
-        chiffre_affaire : 12000,
-        nb_clients : 10300,
-        ville : "TAZA"
+        "nom": "Karim",
+        "entreprise": "FinPro",
+        "email": "karim@example.com",
+        "telephone": "0600777888",
+        "ville": "Fès",
+        "adresse": {
+            "rue": "Rue D",
+            "code_postal": "30000",
+            "ville": "Fès",
+            "pays": "Maroc"
+        }
     },
     {
-        mois : "5",
-        chiffre_affaire : 120,
-        nb_clients : 10200,
-        ville : "RABAT"
+        "nom": "Lina",
+        "entreprise": "SmartBiz",
+        "email": "lina@example.com",
+        "telephone": "0600999000",
+        "ville": "Tangier",
+        "adresse": {
+            "rue": "Rue E",
+            "code_postal": "90000",
+            "ville": "Tangier",
+            "pays": "Maroc"
+        }
     },
     {
-        mois : "6",
-        chiffre_affaire : 120,
-        nb_clients : 100,
-        ville : "casablanca"
-    },
-    {
-        mois : "7",
-        chiffre_affaire : 13320,
-        nb_clients : 1050,
-        ville : "casablanca"
-    },
-    {
-        mois : "8",
-        chiffre_affaire : 1520,
-        nb_clients : 10,
-        ville : "casablanca"
-    },
-    {
-        mois : "9",
-        chiffre_affaire : 50000,
-        nb_clients : 4000,
-        ville : "casablanca"
-    },
-    {
-        mois : "10",
-        chiffre_affaire : 1200,
-        nb_clients : 3000,
-        ville : "RABAT"
-    },
-    {
-        mois : "11",
-        chiffre_affaire : 90000,
-        nb_clients : 20,
-        ville : "RABAT"
-    },
-    {
-        mois : "12",
-        chiffre_affaire : 700,
-        nb_clients : 70,
-        ville : "casablanca"
-    },
+        "nom": "Hassan",
+        "entreprise": "DataCo",
+        "email": "hassan@example.com",
+        "telephone": "0600111223",
+        "ville": "Agadir",
+        "adresse": {
+            "rue": "Rue F",
+            "code_postal": "80000",
+            "ville": "Agadir",
+            "pays": "Maroc"
+        }
+    }
 ]
 
-result  = ventes.reduce((a, b)=> ({chiffre_affaire: a.chiffre_affaire  + b.chiffre_affaire}))
+contacts.forEach(contact => {
+    console.log(`${contact.nom} --- ${contact.ville}\n`)
+})
 
-console.log(result)
+const  groupByVille = {}
 
-chiffreDaffiareMoyene = result.chiffre_affaire / 12;
-console.log(chiffreDaffiareMoyene)
+contacts.forEach(contact => {
+    const city = contact.ville;
+    if(!groupByVille[city]){
+        groupByVille[city] =  [];
+    }
+    groupByVille[city].push(contact.nom);
+});
+
+console.log(groupByVille);
+
+contactsOfEntreprise = contacts.filter(contact => contact.entreprise === "TechCo")
+
+contactDemenage = contacts.find(contact => contact.nom = "Nohaila")
+
+contactDemenage.adresse = {
+    rue: 'Rue B',
+    code_postal: '200',
+    ville: 'Rabat',
+    pays: 'Maroc'
+}
+console.log(contactDemenage);
+
+contacts.forEach(contact => {
+    contact.dernierContact =  Date.now() + Math.random() * 1000000
+})
+
+console.log(contacts);
+
+let cs = contacts.filter(contact => contact.dernierContact < 2592000)
+
+console.log(cs)
+
+//R-Challenge 5 — La gestion de stock d'un restaurant
+
+let ingredients = [
+    { nom: "Tomate", quantite: 10, unite: "kg", prix_unitaire: 3, seuil_alerte: 2, categorie: "legume" },
+    { nom: "Oignon", quantite: 8, unite: "kg", prix_unitaire: 2, seuil_alerte: 2, categorie: "legume" },
+    { nom: "Carotte", quantite: 6, unite: "kg", prix_unitaire: 1.5, seuil_alerte: 1, categorie: "legume" },
+
+    { nom: "Poulet", quantite: 5, unite: "kg", prix_unitaire: 50, seuil_alerte: 2, categorie: "viande" },
+    { nom: "Boeuf", quantite: 4, unite: "kg", prix_unitaire: 80, seuil_alerte: 1, categorie: "viande" },
+    { nom: "Agneau", quantite: 3, unite: "kg", prix_unitaire: 90, seuil_alerte: 1, categorie: "viande" },
+
+    { nom: "Sel", quantite: 2, unite: "kg", prix_unitaire: 1, seuil_alerte: 0.5, categorie: "epice" },
+    { nom: "Poivre", quantite: 1, unite: "kg", prix_unitaire: 10, seuil_alerte: 0.2, categorie: "epice" },
+    { nom: "Paprika", quantite: 1.5, unite: "kg", prix_unitaire: 12, seuil_alerte: 0.3, categorie: "epice" },
+
+    { nom: "Eau", quantite: 50, unite: "litres", prix_unitaire: 1, seuil_alerte: 10, categorie: "boisson" },
+    { nom: "Jus", quantite: 30, unite: "litres", prix_unitaire: 5, seuil_alerte: 5, categorie: "boisson" },
+    { nom: "Soda", quantite: 40, unite: "litres", prix_unitaire: 4, seuil_alerte: 8, categorie: "boisson" }
+];
+
+ingredients.forEach(ingredient => {
+    console.log(`${ingredient.nom} -  ${ingredient.seuil_alerte} - ${ingredient.quantite} - ${ingredient.prix_unitaire}/${ingredient.unite} - ${ingredient.categorie}`)
+})
 
 
-meilleurMois =  ventes.sort((a, b)=> a.chiffre_affaire - b.chiffre_affaire)[ventes.length - 1]
-console.log(meilleurMois.mois)
+let somme =  ingredients.reduce((sum, ingredient) => sum + (ingredient.prix_unitaire * ingredient.quantite), 0)
+console.log(somme)
 
-moisMoinDeClient=  ventes.sort((a, b)=> a.nb_clients - b.nb_clients)[0]
-console.log(moisMoinDeClient.mois)
+let ingredientByCategory = {};
+let stock = 0;
+ingredients.forEach(ingredient => {
+    let category = ingredient.categorie;
+
+    if(!ingredientByCategory[category]){
+        ingredientByCategory[category] = 0
+    }
+    ingredientByCategory[category] += ingredient.quantite
+})
+console.log(ingredientByCategory)
+
