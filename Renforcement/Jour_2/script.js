@@ -120,3 +120,108 @@ console.log(venetsFilter)
 
 ventesParChiffreDaffaireDesc = ventes.sort((a, b) => b.chiffre_affaire - a.chiffre_affaire )
 
+
+//R-Challenge 3 — Le système de notation
+let recettes = [
+    {
+        pseudo : "RECETTE 1",
+        note : 4,
+        commentaire : "commentairecommentairecommentairecommentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 2",
+        note : 1,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 3",
+        note : 3,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 1",
+        note : 4,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 2",
+        note : 1,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 3",
+        note : 3,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 1",
+        note : 4,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 2",
+        note : 1,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 3",
+        note : 3,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 1",
+        note : 4,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 2",
+        note : 1,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 3",
+        note : 3,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 1",
+        note : 4,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 2",
+        note : 1,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+    {
+        pseudo : "RECETTE 3",
+        note : 3,
+        commentaire : "commentaire",
+        date : Date.now()
+    },
+]
+
+somme = recettes.reduce((a, b)=> ({note: a.note + b.note}))
+moyenne  = Math.round(somme/ recettes.length)
+
+
+avitPosiitf = recettes.filter(recette => recette.note >= 4);
+
+avitNegatif =  recettes.filter(recette => recette.note <= 2);
+
+avisTrierParDate = recettes.sort((a,b) => b.date - a.date)
+avisTrierParCommentaire = recettes.sort((a,b) => b.commentaire.length - a.commentaire.length)[0]
