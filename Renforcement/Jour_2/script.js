@@ -114,3 +114,9 @@ if(chansons.find(chanson => chanson.genre > "Rock" )){
 sortChansons = chansons.sort((a, b) => a.duree - b.duree )
 console.log(sortChansons)
 
+venetsFilter = ventes.filter(vente => vente.chiffre_affaire > 50000)
+
+console.log(venetsFilter)
+
+ventesParChiffreDaffaireDesc = ventes.sort((a, b) => b.chiffre_affaire - a.chiffre_affaire )
+
