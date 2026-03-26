@@ -149,6 +149,7 @@ console.log(somme)
 
 let ingredientByCategory = {};
 let stock = 0;
+
 ingredients.forEach(ingredient => {
     let category = ingredient.categorie;
 
@@ -158,4 +159,50 @@ ingredients.forEach(ingredient => {
     ingredientByCategory[category] += ingredient.quantite
 })
 console.log(ingredientByCategory)
+
+function ajouterIngrediantsToListes(Ingredient, commande)
+{
+    let errorCount =0
+    commande.forEach(cmd => {
+        let item = Ingredient.find(ing => ing.nom === cmd.nom );
+        if(item  && item.quantite > cmd.quantite){
+            item.quantite-=  cmd.quantite
+        }else if(item.quantite < cmd.quantite){
+            console.log("Stock insuffisant");
+            errorCount++;
+        }else {
+            console.log("Ingrediant  Introuvable");
+            errorCount++
+        }
+        if(errorCount > 0)
+            console.log("Commande Impossible")
+        console.log("Commande Valide");
+    })
+}
+let commandes = [
+    {
+        nom: "Poivre", quantite: 1
+    },
+    {
+        nom: "Poivre", quantite: 1,
+    },{
+        nom: "Agneau", quantite: 3,
+    },
+]
+ajouterIngrediantsToListes(ingredients, commandes)
+
+let listeCaurse = []
+
+ingredients.forEach( ing => {
+    if(ing.quantite < ing.seuil_alerte){
+        let but =(ing.seuil_alerte * 2) - ing.quantite
+        let item = {
+            nom : ing.nom,
+            quantite : but
+        }
+        listeCaurse.push(item);
+    }
+})
+
+console.log(listeCaurse);
 
