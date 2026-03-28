@@ -206,3 +206,48 @@ ingredients.forEach( ing => {
 
 console.log(listeCaurse);
 
+//R-Challenge 6 — Le classement sportif
+
+let equipes = [
+    { nom: "Team A", points: 25, buts_pour: 30, buts_contre: 15, matchs_joues: 10 },
+    { nom: "Team B", points: 18, buts_pour: 20, buts_contre: 18, matchs_joues: 10 },
+    { nom: "Team C", points: 30, buts_pour: 35, buts_contre: 10, matchs_joues: 10 },
+    { nom: "Team D", points: 12, buts_pour: 15, buts_contre: 25, matchs_joues: 10 },
+    { nom: "Team E", points: 22, buts_pour: 28, buts_contre: 20, matchs_joues: 10 },
+    { nom: "Team F", points: 10, buts_pour: 12, buts_contre: 30, matchs_joues: 10 },
+    { nom: "Team G", points: 27, buts_pour: 33, buts_contre: 14, matchs_joues: 10 },
+    { nom: "Team H", points: 15, buts_pour: 18, buts_contre: 22, matchs_joues: 10 }
+];
+
+let difDeChaqueEquipeArray = []
+equipes.forEach(equipe => {
+    let difDeButs = equipe.buts_pour - equipe.buts_contre;
+    let difDeChaqueEquipeItem = {
+        nom : equipe.nom,
+        diffBut : difDeButs
+    }
+    equipe.dif = difDeButs;
+    difDeChaqueEquipeArray.push(difDeChaqueEquipeItem);
+
+})
+
+console.log(difDeChaqueEquipeArray);
+
+let classement = [...equipes].sort((a, b)=>{
+    if(a.points === b.points){
+        return b.dif - a.dif;
+    }else
+        return b.points - a.points
+} )
+
+console.log(classement);
+
+classement.forEach(clas =>{
+    clas.rang = `${clas.nom} -  ${clas.points} (dif : ${clas.dif > 0? '+':'-'}${clas.dif})`
+})
+
+console.log(classement);
+
+
+//5
+//6
