@@ -9,12 +9,16 @@ CREATE TABLE utilisateurs (
 CREATE TABLE apprenants (
     id INT PRIMARY KEY  AUTO_INCREMENT,
     CNE VARCHAR(50),
-    filliere VARCHAR(50)
+    filliere VARCHAR(50),
+    utilisateur_id INT,
+    FOREIGN KEY (utilisateur_id) REFERENCES  utilisateurs (id) ON DELETE CASCADE
 )ENGINE=INNODB;
 
 CREATE TABLE professeurs (
     id INT PRIMARY KEY  AUTO_INCREMENT,
-    matricule VARCHAR(50)
+    matricule VARCHAR(50),
+    utilisateur_id INT,
+    FOREIGN KEY (utilisateur_id) REFERENCES  utilisateurs (id) ON DELETE CASCADE
 )ENGINE=INNODB;
 
 CREATE TABLE cours (

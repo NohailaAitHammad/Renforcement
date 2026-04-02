@@ -97,32 +97,93 @@ ajouterReservation(30,datas,reservations)
 annulerReservation(reservations, 14, 30)
 listeReservationsParDate(reservations, "12/10/2020")
 
+
+
 //R-Challenge 8 — Le panier e-commerce intelligent
 let panier  = [
-    {id:1, nom: "Tomate", prix:100,  stock_disponible : 100},
-    {id:2, nom: "Potato", prix:120,  stock_disponible : 50},
-    {id:3, nom: "onion", prix:120,  stock_disponible : 50},
+    {
+       produit :  {id:1, nom: "Tomate", prix:100,  stock_disponible : 100},
+       quantite :  1
+    },{
+        produit: {id:2, nom: "Potato", prix:120,  stock_disponible : 50},
+        quantite : 2
+    }
 ]
 
-function produitIsExiste(panier, article){
-    if(panier.find(art => art.id === article.id) === null){
-        return false
-    }
-    return true
+function produitIsExiste(panier, idArticle){
+    return panier.find(art => art.produit.id === idArticle)
 }
 
-function ajouterProduit(idArticle, quantite){
-    if(produitIsExiste(articles, idArticle) ) {
-        let article = articles.find(art => art.id === idArticle)
-        if (article.stock_disponible < quantite){
+function ajouterProduit(article, quantite){
+    let prodExist = produitIsExiste(panier, article.id)
+    if(prodExist) {
+        if (prodExist.produit.stock_disponible < quantite){
             console.log("Stock insuffisant")
             return false;
         }
-        article.stock_disponible -= quantite
-        return articles
+        prodExist.quantite += quantite
+        return panier
     }else {
-        let article = articles.find(art => art.id === idArticle)
-        articles.push(article)
+        if (article.produit.stock_disponible < quantite){
+            console.log("Stock insuffisant")
+            return false;
+        }
+        panier.push({
+            "produit" : article,
+            "quantite" : quantite
+        })
     }
-    return articles
+    return panier
 }
+
+function modifierQuantite(article, newQuantite){
+    let prodExist = produitIsExiste(panier, article.id)
+
+    if(!prodExist){
+      console.log("Article introuvable")
+      return false;
+    }
+    if (prodExist.produit.stock_disponible < newQuantite){
+        console.log("Stock insuffisant")
+        return false;
+    }
+
+    prodExist.quantite = newQuantite;
+    return panier;
+}
+
+function supprimerArticle(article){
+    let indexArticleSupp = panier.findIndex(article => article.produit.id === prodExist.produit.id);
+
+    if(indexArticleSupp === -1){
+        console.log("Article introuvable");
+        return false;
+    }
+
+    panier.splice(indexArticleSupp, 1);
+
+    return panier;
+}
+
+function sousTotalArticle(panier){
+    let arraySousTotal = []
+   panier.forEach(article => {
+        let sousTotalArticle = {
+            "id": article.produit.id ,
+           "sousTotal": article.produit.prix * article.quantite
+        }
+        arraySousTotal.push(sousTotalArticle);
+   })
+
+    return  arraySousTotal;
+}
+
+function calculTotal(panier){
+    return sousTotalArticle(panier).reduce((acc, article) => acc + article.sousTotal, 0);
+}
+
+function  nombreTotalArticles(panier){
+    return panier.reduce((total, article) => total + article.quantite, 0);
+}
+
+
