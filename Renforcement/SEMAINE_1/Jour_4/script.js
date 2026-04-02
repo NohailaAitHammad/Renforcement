@@ -186,4 +186,109 @@ function  nombreTotalArticles(panier){
     return panier.reduce((total, article) => total + article.quantite, 0);
 }
 
+function appliquerCodePromo(total, code){
+    let remise = 0
+    let fraisLivraison = 7
 
+    switch (code){
+        case "BIENVENUE" :
+            remise = total * 0.15;
+            break;
+        case "NOEL2025" :
+            if(total > 50)
+                remise = 10
+
+            break;
+        case "LIVGRATUITE" :
+            fraisLivraison = 0;
+            break;
+        default :
+            console.log("Code promo invalide");
+    }
+
+    return {
+            remise : remise,
+            fraisLivraison : fraisLivraison
+        }
+}
+
+function  recapitulatif(panier,codePromo = null){
+    const lignes = sousTotalArticle(panier);
+    const totalAvantRemise = calculTotal(panier);
+    let {remise, fraisLivraison} = appliquerCodePromo(totalAvantRemise, codePromo);
+
+    if(totalAvantRemise > 100 && codePromo !== "LIVGRATUITE"){
+        fraisLivraison = 0
+    }
+
+
+    const total = totalAvantRemise - remise + fraisLivraison;
+    const TVA  = total * 0.2;
+    const totalTTC = total + TVA;
+
+    return {
+        "lignes " : lignes,
+        "totalAvantRemise" : totalAvantRemise,
+        "remise": remise,
+        "fraiLivraison" : fraisLivraison,
+        "TVA" : TVA,
+        "total" : total
+    };
+}
+
+
+
+// R-Challenge 9 — Le convertisseur de devises
+let taux = {
+    USD : 1.08,
+    GBP : 0.86,
+    MAD : 10.85,
+    JPY : 162.5,
+    CAD : 1.47
+}
+
+function convertir(montant, deviseSource, deviseCible){
+    let montantEURO = deviseSource ==="EUR"? montant: montant / taux[deviseSource];
+
+    return deviseCible === "EUR" ? montantEURO : montant * taux[deviseCible];
+}
+
+
+function convertirPanier(panier, deviseSource, deviseCible){
+   return  panier.map(p => convertir(p.prix, deviseSource, deviseCible))
+}
+
+function meilleurTaux(montant, deviseSource){
+    let meilleurTaux = []
+    for(let devise in taux){
+        let item = {
+            devise : devise,
+            montant : convertir(montant, deviseSource, devise)
+        }
+        meilleurTaux.push(item)
+    }
+   return meilleurTaux
+}
+
+
+let historique = [];
+
+function convertirEtHistoriser(montant, deviseSource, deviseCible){
+    let montantConverti = convertir(montant, deviseSource, deviseCible);
+
+    historique.push({
+        date: new Date(),
+        montantSource: montant,
+        deviseSource: deviseSource,
+        montantCible: montantConverti,
+        deviseCible: deviseCible
+    });
+
+    return montantConverti;
+}
+
+function afficherHistorique(){
+    historique.forEach(item => {
+        console.log(`${item.date.toLocaleString()} : ${item.montantSource} ${item.deviseSource} → ${item.montantCible.toFixed(2)} ${item.deviseCible}`);
+    });
+}
